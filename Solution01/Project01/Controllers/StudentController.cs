@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Project01.Helpers;
 using Project01.Models;
+using Project01.Services;
 
 namespace Project01.Controllers
 {
@@ -14,36 +15,36 @@ namespace Project01.Controllers
     [ApiController]
     public class StudentController : ControllerBase
     {
+
+        private readonly IDbService _idbService;
+
+        public StudentController(IDbService idbService)
+        {
+            _idbService = idbService;
+        }
+
         [HttpGet]
         public IActionResult GetStudents() 
         {
-            var students = new List<Student>();
-            using (var connection = new SqlConnection(DbServer.localConnection)) 
+            var result = _idbService.GetStudents();
+            if(result.Count < 1) 
             {
-                using (var command = new SqlCommand()) 
-                {
-                    command.Connection = connection;
-                    command.CommandText = @"SELECT IndexNumber, FirstName, LastName, BirthDate, IdENrollment FROM Student;";
-                    connection.Open();
-
-                    using var dr = command.ExecuteReader();
-
-                    while (dr.Read()) 
-                    {
-                        var student = new Student
-                        {
-                            IndexNumber = dr["IndexNumber"].ToString(),
-                            FirstName = dr["FirstName"].ToString(),
-                            LastName = dr["LastName"].ToString(),
-                            BirthDate = DateTime.Parse(dr["BirthDate"].ToString()),
-                            IdEnrollment = int.Parse(dr["IdEnrollment"].ToString())
-                        };
-                        students.Add(student);
-                    }
-
-                    return Ok(students);
-                }
+                return BadRequest("There is no student record in your database server!");
             }
+
+            return Ok(result);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetStudent(string index) 
+        {
+            var student = _idbService.GetStudent(index);
+            if(student == null)
+            {
+                return NotFound($"Student with {index} id number does not exist!");
+            }
+
+            return Ok(student);
         }
     }
 }
