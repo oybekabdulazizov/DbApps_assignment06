@@ -10,5 +10,7 @@ namespace Project01.Services
     {
         public Student GetStudent(string index);
         public List<Student> GetStudents();
+
+        public void SaveLogData(string path, string method, string queryString, string bodyString);
     }
 }

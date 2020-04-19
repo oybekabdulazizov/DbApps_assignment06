@@ -1,0 +1,55 @@
+Path: /api/students
+Method: GET
+Query string: 
+Body string: 
+----------------------------------------
+Path: /favicon.ico
+Method: GET
+Query string: 
+Body string: 
+----------------------------------------
+Path: /api/students
+Method: GET
+Query string: 
+Body string: 
+----------------------------------------
+Path: /api/students
+Method: GET
+Query string: 
+Body string: 
+----------------------------------------
+Path: /api/students
+Method: POST
+Query string: 
+Body string: {
+	"Data": "data"
+}
+----------------------------------------
+Path: /api/students/2
+Method: PUT
+Query string: 
+Body string: {
+	"Data": "data"
+}
+----------------------------------------
+Path: /api/students
+Method: PUT
+Query string: ?Index=s123
+Body string: {
+	"Data": "data"
+}
+----------------------------------------
+Path: /api/students
+Method: PUT
+Query string: 
+Body string: {
+	"Data": "data"
+}
+----------------------------------------
+Path: /api/students
+Method: GET
+Query string: 
+Body string: {
+	"Data": "data"
+}
+----------------------------------------

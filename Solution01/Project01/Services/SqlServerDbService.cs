@@ -3,6 +3,7 @@ using Project01.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -75,6 +76,28 @@ namespace Project01.Services
 
                     return students;
                 }
+            }
+        }
+
+        public void SaveLogData(string path, string method, string queryString, string bodyString)
+        {
+            string logPath = @"Files\logData.txt";
+            try
+            {
+                using (StreamWriter writer = File.AppendText(logPath))
+                {
+                    writer.WriteLine("Path: " + path);
+                    writer.WriteLine("Method: " + method);
+                    writer.WriteLine("Query string: " + queryString);
+                    writer.WriteLine("Body string: " + bodyString);
+                    writer.WriteLine("----------------------------------------");
+                    writer.Flush();
+                    writer.Close();
+                }
+            }
+            catch
+            {
+                throw new IOException();
             }
         }
     }

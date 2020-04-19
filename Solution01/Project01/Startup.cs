@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Project01.Middelwares;
 using Project01.Services;
 
 namespace Project01
@@ -51,6 +52,8 @@ namespace Project01
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Student API v1");
             });
+
+            app.UseMiddleware<LoggingMiddleware>();
 
             app.Use(async (context, next) =>
             {
